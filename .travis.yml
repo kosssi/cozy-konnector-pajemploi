@@ -6,6 +6,8 @@ env:
     # kosssi GITHUB_TOKEN
     # to generate yours : travis encrypt GITHUB_TOKEN=<your_GITHUB_TOKEN>
     - secure: "SiRthJV/gKNV6c6eT71uLT5rMaoYELM/N67Ip/wPTeeWdh9xtgTg5HpAas9Zo7F5R32OTrzSjzVJ+7dVa5D+LOQG2FmM8vs5hHXAaWpopRYepd+jaWJZnsKqz+WhWTzOcdiftoiM7McujDxkAAAn0H6/FbXPDD1wwVPiJYS5umTYSFqvabpM+5w+1MWKhlt3FDJ2uSO87f3ahcZT977nH1V4KnAiNnbH34YatOy1yseeCalvfSfTGJuL0zP0REc6ts6aWuij+UuhLEcOU3ewWDe2tedwsA2cG9xX7FLZ94ZunjWlHEb/Wg4CrLHitaZkelaTmGdFSZuvB5RdSrKz5lrrOduWHXRGmoklUw4NnTAu1/0thb8RPUY+bLA2PEgAZEnAVGVWov2hLHYRLI488OyAmgomKxPVyGD37sZK9Igk+tCsEYdcF6VsRgB3vj0N8wJsYCfEcG3s1YJSASupzS/h/7p3XGXy7VYV6b3Vd6Ri5RDAaYeT0KLnP945x+fnq3eb5kw2oNfNHZ54Ja16uEJ4KLadoCtwe/RUWQOEJN0B2DpGlcmFp4i6ZZTvVPaxCCitIDjjtTUqUqEmWdHFpHgdtuSexpIgsuIdJhsXUCwNMCXpUOIyc4fdBf4rEPIsv8A6CxOkgW2uONpc6VgIOnorDPixma0b2DGtk2t9WsM="
+    # REGISTRY_TOKEN
+    - secure: TX5mIMnEJrJO7rKaURVdkTZVfBvtopDjp1zkztSE2JSEDjrSxNjacuGKjb2WTfXijraFDazqGjhSy1mZLQYEF4mHFRcKGGdDBMwgc45VBni6zq6Z70JeYaEiAn5lvbcdLo8LC+mY13Pk/X0TRqNlzVObCRrz3+H/J8x3WF1DVsOC1pMLRJZXxoieRXl9mgzk10nHC6VaqP05PmZS9t4/nUMlR+xUxLfHIasYW/UGgYqVLm/ua8B9vLSy/3dyrDPm7KmCvWZI5JlI4lcaLH9IhTCGDm74/gvauqwBxtSxm8caOLylBAZ427B1cA75uGAIGN0aoOl/apTEt+/fi+7QQEpa/+X6fYaojOfDC1HmcuUWXviGMg1L2bZBMs26rgxymFFaUB+I+BgXCJPXOQkIfMcqETD3pET/32QsTwC4L3iTqWc3RFEvrdQNi/9jy2O3w5h7dp4UmUH7zClS53jUAPipl27Q6I6M1lNXd5U1f7w0F17HQAo6MOvAZm02y9mic8FxxTDmAJL+95sx75D7HVCHHTpAgOUm5tYGeWSjBARvQ6yN7XYQHqPpFMpukf4kmpoTfYVY/AvYMU4yETaCEzXYzfrnMe5MClZCE/OWY+NNbOOhM3q0D1bLOyYik0xPCtCfIHe2eBudaxMTfKjgThHoxckGsyYn1syL9Z1ycIU=
 cache:
   yarn: true
   directories:
@@ -17,12 +19,12 @@ deploy:
   - provider: script
     repo: konnectors/cozy-konnector-pajemploi
     skip-cleanup: true
-    script: yarn deploy
+    script: DEPLOY_BRANCH=build && yarn deploy && yarn cozyPublish
     on:
       branch: master
   - provider: script
     repo: konnectors/cozy-konnector-pajemploi
     skip-cleanup: true
-    script: yarn deploy:prod
+    script: DEPLOY_BRANCH=latest && yarn deploy && yarn cozyPublish
     on:
       branch: prod
